@@ -1,0 +1,17 @@
+##In Omarchy docker comes with pre installed
+
+##I run Command
+
+-docker --version
+
+its show the version of installed docker.
+
+Then i run:
+
+-docker info
+
+### i get server : Permission denied while trying to connect to the docker API 
+at unix:///var/run/docker.sock
+
+
+
