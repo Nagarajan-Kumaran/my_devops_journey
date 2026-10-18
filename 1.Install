@@ -13,5 +13,98 @@ Then i run:
 ### i get server : Permission denied while trying to connect to the docker API 
 at unix:///var/run/docker.sock
 
+So want to check the permission of /var/run/docker.sock
+
+-ls -l /var/run/docker.sock
+
+-then stat -c '%A %U %G %n' /var/run/docker.sock
+
+Output:
+
+srw-rw---- root docker /var/run/docker.sock
+
+Here totally two groups have permission one is root another one docker 
+
+Need to check  current user naoh have in these groups or not
+
+-groups noah
+
+i found current user noah not in docker groups as well as root.
+
+so i add naoh into docker
+
+-sudo usermod -aG docker noah
+
+Before that i run this command for check how many users in docker group 
+
+-getent group docker 
+
+ output:
+
+docker:x:966:
+
+so its shows no users under docker group
+
+once i add noah into docker groups output will be
+
+output:
+
+-docker:x:966:noah (966 its a GID)
 
 
+For checking i was run
+
+-docker run hello-world
+
+I got welcome text on CLI
+
+then i run 
+
+-docker images (For findout what are the images i have in docker)
+
+then
+
+-docker ps (for find container but its only show when  they on run)
+
+so i run
+
+-docker ps -a (a means all container)
+
+## Pull a image on docker UBUNTU 24.04
+
+- docker pull ubuntu:24.04
+
+for run a image container
+
+- docker run -dit --name linux-admin ubuntu:24.04
+
+here :
+
+docker - command line client
+
+run - create and start a new container
+
+-d - detatched mode means runs on background
+
+-i - keep STDIN open (idk what is it)
+
+-t - allocate a terminal
+
+--name - of the conatiner and image
+
+
+=============================================================================
+
+After successfully run the container 
+
+- docker exce -it linux-admin bash 
+
+exec - means send a commnad to server
+
+-i - keep input
+
+-t - give us terminal 
+
+-linux-admin - container name
+
+bash - start the bash shell
